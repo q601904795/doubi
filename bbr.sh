@@ -108,17 +108,17 @@ check_deb_off(){
 }
 # 删除其余内核
 del_deb(){
-	deb_total=`dpkg -l | grep linux-image | awk '{print $2}' | grep -v "${latest_version}" | wc -l`
+	deb_total=`dpkg -l | grep linux-image | grep -v unsigned | awk '{print $2}' | grep -v "${latest_version}" | wc -l`
 	if [[ "${deb_total}" -ge "1" ]]; then
 		echo -e "${Info} 检测到 ${deb_total} 个其余内核，开始卸载..."
 		for((integer = 1; integer <= ${deb_total}; integer++))
 		do
-			deb_del=`dpkg -l|grep linux-image | awk '{print $2}' | grep -v "${latest_version}" | head -${integer}`
+			deb_del=`dpkg -l|grep linux-image | grep -v unsigned | awk '{print $2}' | grep -v "${latest_version}" | head -${integer}`
 			echo -e "${Info} 开始卸载 ${deb_del} 内核..."
 			apt-get purge -y ${deb_del}
 			echo -e "${Info} 卸载 ${deb_del} 内核卸载完成，继续..."
 		done
-		deb_total=`dpkg -l|grep linux-image | awk '{print $2}' | wc -l`
+		deb_total=`dpkg -l|grep linux-image | grep -v unsigned | awk '{print $2}' | wc -l`
 		if [[ "${deb_total}" = "1" ]]; then
 			echo -e "${Info} 内核卸载完毕，继续..."
 		else
