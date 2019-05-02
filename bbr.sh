@@ -162,6 +162,8 @@ installbbr(){
 	echo "nameserver 8.8.4.4" >> /etc/resolv.conf
 	
 	wget -O "${deb_kernel_name}" "${deb_kernel_url}"
+	wget -O "${deb_kernel_name2}" "${deb_kernel_url2}"
+	wget -O "${deb_kernel_name3}" "${deb_kernel_url3}"
 	if [[ -s ${deb_kernel_name} ]]; then
 		echo -e "${Info} 内核安装包下载成功，开始安装内核..."
 		dpkg -i ${deb_kernel_name}
