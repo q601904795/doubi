@@ -57,13 +57,31 @@ get_latest_version(){
 	Set_latest_new_version
 	bit=`uname -m`
 	if [[ ${bit} == "x86_64" ]]; then
-		deb_name=$(wget -qO- http://kernel.ubuntu.com/~kernel-ppa/mainline/v${latest_version}/ | grep "linux-image" | grep "generic" | awk -F'\">' '/amd64.deb/{print $2}' | cut -d'<' -f1 | head -1 )
+		deb_name=$(wget -qO- http://kernel.ubuntu.com/~kernel-ppa/mainline/v${latest_version}/ | grep "linux-image-unsigned" | grep "generic" | awk -F'\">' '/amd64.deb/{print $2}' | cut -d'<' -f1 | head -1 )
 		deb_kernel_url="http://kernel.ubuntu.com/~kernel-ppa/mainline/v${latest_version}/${deb_name}"
 		deb_kernel_name="linux-image-${latest_version}-amd64.deb"
 	else
-		deb_name=$(wget -qO- http://kernel.ubuntu.com/~kernel-ppa/mainline/v${latest_version}/ | grep "linux-image" | grep "generic" | awk -F'\">' '/i386.deb/{print $2}' | cut -d'<' -f1 | head -1)
+		deb_name=$(wget -qO- http://kernel.ubuntu.com/~kernel-ppa/mainline/v${latest_version}/ | grep "linux-image-unsigned" | grep "generic" | awk -F'\">' '/i386.deb/{print $2}' | cut -d'<' -f1 | head -1)
 		deb_kernel_url="http://kernel.ubuntu.com/~kernel-ppa/mainline/v${latest_version}/${deb_name}"
 		deb_kernel_name="linux-image-${latest_version}-i386.deb"
+	fi
+	if [[ ${bit} == "x86_64" ]]; then
+		deb_name2=$(wget -qO- http://kernel.ubuntu.com/~kernel-ppa/mainline/v${latest_version}/ | grep "linux-headers" | awk -F'\">' '/all.deb/{print $2}' | cut -d'<' -f1 | head -1 )
+		deb_kernel_url2="http://kernel.ubuntu.com/~kernel-ppa/mainline/v${latest_version}/${deb_name}"
+		deb_kernel_name2="linux-headers-${latest_version}-all.deb"
+	else
+		deb_name2=$(wget -qO- http://kernel.ubuntu.com/~kernel-ppa/mainline/v${latest_version}/ | grep "linux-headers" | awk -F'\">' '/all.deb/{print $2}' | cut -d'<' -f1 | head -1)
+		deb_kernel_url2="http://kernel.ubuntu.com/~kernel-ppa/mainline/v${latest_version}/${deb_name}"
+		deb_kernel_name2="linux-headers-${latest_version}-all.deb"
+	fi
+	if [[ ${bit} == "x86_64" ]]; then
+		deb_name3=$(wget -qO- http://kernel.ubuntu.com/~kernel-ppa/mainline/v${latest_version}/ | grep "linux-headers" | grep "generic" | awk -F'\">' '/amd64.deb/{print $2}' | cut -d'<' -f1 | head -1 )
+		deb_kernel_url3="http://kernel.ubuntu.com/~kernel-ppa/mainline/v${latest_version}/${deb_name}"
+		deb_kernel_name3="linux-modules-${latest_version}-amd64.deb"
+	else
+		deb_name3=$(wget -qO- http://kernel.ubuntu.com/~kernel-ppa/mainline/v${latest_version}/ | grep "linux-headers" | grep "generic" | awk -F'\">' '/amd64.deb/{print $2}' | cut -d'<' -f1 | head -1)
+		deb_kernel_url3="http://kernel.ubuntu.com/~kernel-ppa/mainline/v${latest_version}/${deb_name}"
+		deb_kernel_name3="linux-modules-${latest_version}-i386.deb"
 	fi
 }
 #检查内核是否满足
