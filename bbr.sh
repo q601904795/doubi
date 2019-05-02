@@ -119,7 +119,7 @@ del_deb(){
 			echo -e "${Info} 卸载 ${deb_del} 内核卸载完成，继续..."
 		done
 		deb_total=`dpkg -l|grep linux-image | grep -v unsigned | awk '{print $2}' | wc -l`
-		if [[ "${deb_total}" = "1" ]]; then
+		if [[ "${deb_total}" = "0" ]]; then
 			echo -e "${Info} 内核卸载完毕，继续..."
 		else
 			echo -e "${Error} 内核卸载异常，请检查 !" && exit 1
