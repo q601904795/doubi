@@ -179,10 +179,17 @@ installbbr(){
 	wget -O "${deb_kernel_name}" "${deb_kernel_url}"
 	wget -O "${deb_kernel_name2}" "${deb_kernel_url2}"
 	wget -O "${deb_kernel_name3}" "${deb_kernel_url3}"
+	wget -O "${deb_kernel_name4}" "${deb_kernel_url4}"
 	if [[ -s ${deb_kernel_name} ]]; then
 		echo -e "${Info} 内核安装包下载成功，开始安装内核..."
+		dpkg -i ${deb_kernel_name2}
+		dpkg -i ${deb_kernel_name4}
+		dpkg -i ${deb_kernel_name3}
 		dpkg -i ${deb_kernel_name}
 		rm -rf ${deb_kernel_name}
+		rm -rf ${deb_kernel_name2}
+		rm -rf ${deb_kernel_name3}
+		rm -rf ${deb_kernel_name4}
 	else
 		echo -e "${Error} 内核安装包下载失败，请检查 !" && exit 1
 	fi
