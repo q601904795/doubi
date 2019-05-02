@@ -5,11 +5,11 @@ export PATH
 #=================================================
 #	System Required: Debian/Ubuntu
 #	Description: ocserv AnyConnect
-#	Version: 1.1.0
+#	Version: 1.1.1
 #	Author: Toyo
 #	Blog: https://doub.io/vpnzy-7/
 #=================================================
-sh_ver="1.1.0"
+sh_ver="1.1.1"
 file="/usr/local/sbin/ocserv"
 conf_file="/etc/ocserv"
 conf="/etc/ocserv/ocserv.conf"
@@ -232,8 +232,8 @@ Set_ocserv(){
 }
 Set_username(){
 	echo "请输入 要添加的VPN账号 用户名"
-	read -e -p "(默认: admin):" username
-	[[ -z "${username}" ]] && username="admin"
+	read -e -p "(默认: zry):" username
+	[[ -z "${username}" ]] && username="zry"
 	echo && echo -e "	用户名 : ${Red_font_prefix}${username}${Font_color_suffix}" && echo
 }
 Set_passwd(){
@@ -246,8 +246,8 @@ Set_tcp_port(){
 	while true
 	do
 	echo -e "请输入VPN服务端的TCP端口"
-	read -e -p "(默认: 443):" set_tcp_port
-	[[ -z "$set_tcp_port" ]] && set_tcp_port="443"
+	read -e -p "(默认: 11384):" set_tcp_port
+	[[ -z "$set_tcp_port" ]] && set_tcp_port="11384"
 	echo $((${set_tcp_port}+0)) &>/dev/null
 	if [[ $? -eq 0 ]]; then
 		if [[ ${set_tcp_port} -ge 1 ]] && [[ ${set_tcp_port} -le 65535 ]]; then
@@ -479,7 +479,7 @@ Set_iptables(){
 		read -e -p "请手动输入你的网卡名(一般情况下，网卡名为 eth0，Debian9 则为 ens3，CentOS Ubuntu 最新版本可能为 enpXsX(X代表数字或字母)，OpenVZ 虚拟化则为 venet0):" Network_card
 		[[ -z "${Network_card}" ]] && echo "取消..." && exit 1
 	else
-		Network_card=$(ifconfig|grep "eth0")
+		Network_card=$(ifconfig|grep "ens5")
 		if [[ ! -z ${Network_card} ]]; then
 			Network_card="eth0"
 		else
