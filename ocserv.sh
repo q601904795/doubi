@@ -72,7 +72,7 @@ Download_ocserv(){
 	mkdir "ocserv" && cd "ocserv"
 	wget "ftp://ftp.infradead.org/pub/ocserv/ocserv-${ocserv_ver}.tar.xz"
 	[[ ! -s "ocserv-${ocserv_ver}.tar.xz" ]] && echo -e "${Error} ocserv 源码文件下载失败 !" && rm -rf "ocserv/" && rm -rf "ocserv-${ocserv_ver}.tar.xz" && exit 1
-	tar -xJf ocserv-0.11.8.tar.xz && cd ocserv-0.11.8
+	tar -xJf ocserv-0.12.3.tar.xz && cd ocserv-0.12.3
 	./configure
 	make
 	make install
@@ -517,7 +517,7 @@ Update_Shell(){
 check_sys
 [[ ${release} != "debian" ]] && [[ ${release} != "ubuntu" ]] && echo -e "${Error} 本脚本不支持当前系统 ${release} !" && exit 1
 echo && echo -e " ocserv 一键安装管理脚本 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
-  -- Toyo | doub.io/vpnzy-7 --
+
   
  ${Green_font_prefix}0.${Font_color_suffix} 升级脚本
 ————————————
