@@ -5,7 +5,7 @@ export PATH
 #=================================================
 #	System Required: Debian/Ubuntu
 #	Description: TCP-BBR
-#	Version: 1.1.2
+#	Version: 1.1.3
 #	Author: Toyo
 #	Blog: https://doub.io/wlzy-16/
 #=================================================
@@ -75,6 +75,12 @@ get_latest_version(){
 		echo -e "${deb_name3}"
 		echo -e "${deb_kernel_url3}"
 		echo -e "${deb_kernel_name3}"
+		deb_name4=$(wget -qO- http://kernel.ubuntu.com/~kernel-ppa/mainline/v${latest_version}/ | grep "linux-headers" | grep "generic" | awk -F'\">' '/amd64.deb/{print $2}' | cut -d'<' -f1 | head -1 )
+		deb_kernel_url4="http://kernel.ubuntu.com/~kernel-ppa/mainline/v${latest_version}/${deb_name4}"
+		deb_kernel_name4="linux-headers-${latest_version}-amd64.deb"
+		echo -e "${deb_name4}"
+		echo -e "${deb_kernel_url4}"
+		echo -e "${deb_kernel_name4}"
 	else
 		deb_name=$(wget -qO- http://kernel.ubuntu.com/~kernel-ppa/mainline/v${latest_version}/ | grep "linux-image-unsigned" | grep "generic" | awk -F'\">' '/i386.deb/{print $2}' | cut -d'<' -f1 | head -1)
 		deb_kernel_url="http://kernel.ubuntu.com/~kernel-ppa/mainline/v${latest_version}/${deb_name}"
