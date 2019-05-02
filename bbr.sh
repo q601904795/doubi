@@ -194,7 +194,7 @@ installbbr(){
 		echo -e "${Error} 内核安装包下载失败，请检查 !" && exit 1
 	fi
 	#判断内核是否安装成功
-	deb_ver=`dpkg -l | grep linux-image | awk '{print $2}' | awk -F '-' '{print $3}' | grep "${latest_version}"`
+	deb_ver=`dpkg -l | grep linux-image-unsigned | awk '{print $2}' | awk -F '-' '{print $4}' | grep "${latest_version}"`
 	if [[ "${deb_ver}" != "" ]]; then
 		echo -e "${Info} 检测到内核安装成功，开始卸载其余内核..."
 		del_deb_over
